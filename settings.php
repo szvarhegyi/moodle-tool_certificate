@@ -114,7 +114,7 @@ if ($hassiteconfig) {
         'tool_certificate/pattern',
         get_string('pattern', 'tool_certificate'),
         get_string('pattern_desc', 'tool_certificate'),
-        'NKE-{year}/{serial}-TEST',
+        'DEV-{year}-{serial}',
         PARAM_RAW
     ));
 

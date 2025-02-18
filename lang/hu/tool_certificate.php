@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['codelength'] = 'Serial number length';
-$string['codelength_desc'] = 'When generating the number, the program adds enough zeros in front of the generated number to reach the set length.';
-$string['pattern'] = 'Pattern';
-$string['pattern_desc'] = 'You can specify how the generated serial number should be displayed. Two variable can be used one is {year} and the other is {serial}. This option can be used to set a unique serial number format.';
+$string['codelength'] = 'Sorszám hossza';
+$string['codelength_desc'] = 'A szám generálásakor a program annyi nullát ad a generált szám elé, hogy elérje a beállított hosszúságot.';
+$string['pattern'] = 'Minta';
+$string['pattern_desc'] = 'Megadhatja, hogy a generált sorozatszám hogyan jelenjen meg. Két változót lehet használni, az egyik az {year}, a másik a {serial}. Ezzel az opcióval egyedi sorozatszám formátumot lehet beállítani. Csak olyan karaktereket használjunk, ami fájlnévben is megengedett!';
