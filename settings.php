@@ -102,6 +102,22 @@ if ($hassiteconfig) {
         new lang_string('allowfilters_desc', 'tool_certificate'),
         ['multilang' => 1]));
 
+    $settings->add(new admin_setting_configtext(
+        'tool_certificate/codelength',
+        get_string('codelength', 'tool_certificate'),
+        get_string('codelength_desc', 'tool_certificate'),
+        10,
+        PARAM_INT
+    ));
+
+    $settings->add(new admin_setting_configtext(
+        'tool_certificate/pattern',
+        get_string('pattern', 'tool_certificate'),
+        get_string('pattern_desc', 'tool_certificate'),
+        'NKE-{year}/{serial}-TEST',
+        PARAM_RAW
+    ));
+
     $ADMIN->add('certificates', $settings);
 
     // Add Certificate Element plugins settings.

@@ -121,7 +121,7 @@ class element extends \tool_certificate\element {
      */
     public function render($pdf, $preview, $user, $issue) {
         if ($preview) {
-            $code = \tool_certificate\certificate::generate_code($user->id);
+            $code = \tool_certificate\certificate::generate_code($user->id, $preview);
         } else {
             $code = $issue->code;
         }
@@ -154,7 +154,7 @@ class element extends \tool_certificate\element {
             $html = \tool_certificate\element_helper::render_image_html($url, $imageinfo,
                 (float)$imageinfo['width'], (float)$imageinfo['height'], $this->get_display_name());
         } else {
-            $code = \tool_certificate\certificate::generate_code();
+            $code = \tool_certificate\certificate::generate_code(null, true);
             $html = \tool_certificate\element_helper::render_html_content($this, $this->format_code($code));
         }
 

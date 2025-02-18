@@ -26,6 +26,7 @@ namespace tool_certificate;
 
 use coding_exception;
 use core_reportbuilder\local\helpers\database;
+use dml_missing_record_exception;
 use MoodleQuickForm;
 
 /**
@@ -332,10 +333,26 @@ class certificate {
      * @param int|null $userid
      * @return string
      */
-    public static function generate_code($userid = null) {
+    public static function generate_code($userid = null, $preview = false) {
         global $DB;
         $uniquecodefound = false;
         $user = $userid ? $DB->get_record('user', ['id' => $userid]) : null;
+        
+        if($preview === true) {
+            $code = 1;
+            
+            $formattedNumber = str_pad($code, get_config('tool_certificate', 'codelength'), "0", STR_PAD_LEFT);
+
+            $code = str_replace(
+                    ['{year}', '{code}'],
+                    [date('Y'), $formattedNumber],
+                    get_config('tool_certificate', 'pattern')
+            );
+
+            return $code;
+
+        }
+
         $code = self::generate_code_string($user);
         while (!$uniquecodefound) {
             if (!$DB->record_exists('tool_certificate_issues', ['code' => $code])) {
@@ -354,18 +371,37 @@ class certificate {
      * @return string
      */
     private static function generate_code_string(?\stdClass $user = null): string {
+        global $DB;
+
         $code = '';
-        for ($i = 1; $i <= 10; $i++) {
-            $code .= mt_rand(0, 9);
+
+        try {
+            $entry = $DB->get_record_sql('SELECT MAX(serial) as serial FROM {tool_certificate_nke} WHERE year = ?', [date('Y')], MUST_EXIST);
+
+            $DB->insert_record('tool_certificate_nke', [
+                'year' => date('Y'),
+                'serial' => $entry->serial + 1
+            ]);
+
+            $code = $entry->serial + 1;
+        } catch (dml_missing_record_exception $e) {
+
+            $DB->insert_record('tool_certificate_nke', [
+                'year' => date('Y'),
+                'serial' => 1
+            ]);
+
+            $code = 1;
         }
-        if ($user) {
-            foreach ([$user->firstname, $user->lastname] as $item) {
-                $initial = \core_text::substr(\core_text::strtoupper(\core_text::specialtoascii($item)), 0, 1);
-                $code .= preg_match('/[A-Z0-9]/', $initial) ? $initial : \core_text::strtoupper(random_string(1));
-            }
-        } else {
-            $code .= \core_text::strtoupper(random_string(2));
-        }
+
+        $formattedNumber = str_pad($code, get_config('tool_certificate', 'codelength'), "0", STR_PAD_LEFT);
+
+        $code = str_replace(
+            ['{year}', '{code}'],
+            [date('Y'), $formattedNumber],
+            get_config('tool_certificate', 'pattern')
+        );
+
         return $code;
     }
 

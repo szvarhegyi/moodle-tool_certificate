@@ -44,7 +44,7 @@ class verify_certificate_form extends \moodleform {
         $mform =& $this->_form;
 
         $mform->addElement('text', 'code', get_string('code', 'tool_certificate'));
-        $mform->setType('code', PARAM_ALPHANUM);
+        $mform->setType('code', PARAM_RAW);
         $mform->addRule('code', null, 'required', null, 'client');
 
         $mform->addElement('submit', 'verify', get_string('verify', 'tool_certificate'));

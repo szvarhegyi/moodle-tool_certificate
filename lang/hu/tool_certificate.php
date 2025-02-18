@@ -15,18 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Code fragment to define the version of the certificate tool
+ * Language strings for the certificate tool.
  *
  * @package    tool_certificate
  * @copyright  2013 Mark Nelson <markn@moodle.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or late
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->component    = 'tool_certificate';
-$plugin->release      = '4.5.1';
-$plugin->version      = 2024121001;
-$plugin->requires     = 2022041900.00;
-$plugin->maturity     = MATURITY_STABLE;
-$plugin->supported    = [400, 405];
+$string['codelength'] = 'Serial number length';
+$string['codelength_desc'] = 'When generating the number, the program adds enough zeros in front of the generated number to reach the set length.';
+$string['pattern'] = 'Pattern';
+$string['pattern_desc'] = 'You can specify how the generated serial number should be displayed. Two variable can be used one is {year} and the other is {serial}. This option can be used to set a unique serial number format.';

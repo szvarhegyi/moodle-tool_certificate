@@ -204,3 +204,8 @@ $string['viewcertificate'] = 'View certificate';
 $string['editcertificate'] = 'Edit certificate template \'{$a}\'';
 $string['issuenewcertificate'] = 'Issue certificates from this template';
 $string['nopermissionform'] = 'You don\'t have permission to access this form.';
+
+$string['codelength'] = 'Code length';
+$string['codelength_desc'] = 'When generating the code, the program adds enough zeros in front of the generated code to reach the set length.';
+$string['pattern'] = 'Pattern';
+$string['pattern_desc'] = 'You can specify how the generated serial number should be displayed. Two variable can be used one is {year} and the other is {code}. This option can be used to set a unique code format.';

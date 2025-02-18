@@ -26,7 +26,7 @@
 // @codingStandardsIgnoreLine
 require_once('../../../config.php');
 
-$code = optional_param('code', '', PARAM_ALPHANUM); // The code for the certificate we are verifying.
+$code = optional_param('code', '', PARAM_RAW); // The code for the certificate we are verifying.
 
 if (!\tool_certificate\permission::can_verify()) {
     throw new moodle_exception('verifynotallowed', 'tool_certificate');

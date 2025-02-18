@@ -247,5 +247,27 @@ function xmldb_tool_certificate_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2023071300, 'tool', 'certificate');
     }
 
+    if ($oldversion < 2024121001) {
+
+        // Define table tool_certificate_nke to be created.
+        $table = new xmldb_table('tool_certificate_nke');
+
+        // Adding fields to table tool_certificate_nke.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('year', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('serial', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+
+        // Adding keys to table tool_certificate_nke.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+
+        // Conditionally launch create table for tool_certificate_nke.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // Certificate savepoint reached.
+        upgrade_plugin_savepoint(true, 2024121001, 'tool', 'certificate');
+    }
+
     return true;
 }
